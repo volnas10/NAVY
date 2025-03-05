@@ -1,0 +1,87 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+class Perceptron:
+    def __init__(self):
+        self.weights = None
+        self.bias = 0
+
+    def fit(self, X, y, epochs=10, lr=0.01):
+        self.weights = np.random.rand(X.shape[1])
+        self.bias = np.random.rand()
+
+        for epoch in range(epochs):
+            average_error = 0
+            for xi, yi in zip(X, y):
+                y_pred = self.predict(xi)
+                error = yi - y_pred
+                self.weights += lr * error * xi
+                self.bias += lr * error
+                average_error += error * error
+
+            if epoch % 100 == 0:
+                average_error = average_error / epochs
+                print(f"Epoch {epoch}, Loss sq: {average_error}")
+
+
+    def predict(self, x):
+        return self.sigmoid(np.dot(self.weights, x) + self.bias)
+
+    def sigmoid(self, x):
+        return 1 / (1 + np.exp(-x))
+
+
+# Generate 100 points for training
+np.random.seed(42)
+x = np.random.uniform(-10, 10, 100)
+y = np.random.uniform(-30, 30, 100)
+X_train = np.array([x, y]).T
+
+# Classify points
+y_line = 3 * x + 2
+above = y > y_line
+below = y < y_line
+on_line = np.isclose(y, y_line, atol=0.5)
+
+y_train = np.zeros(100)
+y_train[above] = 1
+y_train[on_line] = 0.5
+y_train[below] = 0
+
+# Fit perceptron
+perceptron = Perceptron()
+perceptron.fit(X_train, y_train, epochs=1000)
+
+# Generate 100 points for testing
+x = np.random.uniform(-10, 10, 100)
+y = np.random.uniform(-30, 30, 100)
+X_test = np.array([x, y]).T
+
+# Predict
+y_pred = np.zeros(100)
+for i, xi in enumerate(X_test):
+    y_pred[i] = perceptron.predict(xi)
+
+above = y_pred > 0.5
+below = y_pred <= 0.5
+on_line = np.isclose(y_pred, 0.5, atol=0.1)
+
+# Show results
+plt.figure(figsize=(8, 6))
+
+x_line = np.linspace(-10, 10, 100)
+y_line = 3 * x_line + 2
+
+plt.plot(x_line, y_line, 'r-', label="y = 3x + 2")  # Line
+plt.scatter(x[above], y[above], color='blue', label="Above", alpha=0.7)
+plt.scatter(x[below], y[below], color='green', label="Below", alpha=0.7)
+plt.scatter(x[on_line], y[on_line], color='orange', label="On line", marker='x', s=100)
+
+plt.xlabel("x")
+plt.ylabel("y")
+plt.title("Body vzhledem k přímce y = 3x + 2")
+plt.axhline(0, color='black', linewidth=0.5)
+plt.axvline(0, color='black', linewidth=0.5)
+plt.legend()
+plt.grid(True)
+plt.show()

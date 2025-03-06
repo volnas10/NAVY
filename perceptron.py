@@ -1,27 +1,33 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import math
 
 class Perceptron:
-    def __init__(self):
+    def __init__(self, lr=0.01):
         self.weights = None
-        self.bias = 0
+        self.bias = None
+        self.lr = lr
 
-    def fit(self, X, y, epochs=10, lr=0.01):
+    def fit(self, X, y, epochs=100):
+        # Initialize random weights and bias
         self.weights = np.random.rand(X.shape[1])
         self.bias = np.random.rand()
 
         for epoch in range(epochs):
             average_error = 0
             for xi, yi in zip(X, y):
-                y_pred = self.predict(xi)
-                error = yi - y_pred
-                self.weights += lr * error * xi
-                self.bias += lr * error
-                average_error += error * error
+                prediction = self.predict(xi)
+                error = yi - prediction
+
+                # Update weights and bias
+                self.weights += self.lr * error * xi
+                self.bias += self.lr * error
+
+                average_error += math.fabs(error)
 
             if epoch % 100 == 0:
                 average_error = average_error / epochs
-                print(f"Epoch {epoch}, Loss sq: {average_error}")
+                print(f"Epoch {epoch}, Loss: {average_error}")
 
 
     def predict(self, x):
@@ -45,7 +51,7 @@ on_line = np.isclose(y, y_line, atol=0.5)
 
 y_train = np.zeros(100)
 y_train[above] = 1
-y_train[on_line] = 0.5
+y_train[on_line] = 0.5 # Points close to 0.5 will be on the line
 y_train[below] = 0
 
 # Fit perceptron
@@ -79,7 +85,7 @@ plt.scatter(x[on_line], y[on_line], color='orange', label="On line", marker='x',
 
 plt.xlabel("x")
 plt.ylabel("y")
-plt.title("Body vzhledem k přímce y = 3x + 2")
+plt.title("Scatter plot of points and line")
 plt.axhline(0, color='black', linewidth=0.5)
 plt.axvline(0, color='black', linewidth=0.5)
 plt.legend()

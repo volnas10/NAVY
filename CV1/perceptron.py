@@ -38,9 +38,8 @@ class Perceptron:
 
 
 # Generate 100 points for training
-np.random.seed(42)
-x = np.random.uniform(-10, 10, 100)
-y = np.random.uniform(-30, 30, 100)
+x = np.random.uniform(-6, 6, 100)
+y = np.random.uniform(-18, 18, 100)
 X_train = np.array([x, y]).T
 
 # Classify points
@@ -56,11 +55,11 @@ y_train[below] = 0
 
 # Fit perceptron
 perceptron = Perceptron()
-perceptron.fit(X_train, y_train, epochs=1000)
+perceptron.fit(X_train, y_train, epochs=800)
 
 # Generate 100 points for testing
-x = np.random.uniform(-10, 10, 100)
-y = np.random.uniform(-30, 30, 100)
+x = np.random.uniform(-6, 6, 100)
+y = np.random.uniform(-18, 18, 100)
 X_test = np.array([x, y]).T
 
 # Predict
@@ -75,7 +74,7 @@ on_line = np.isclose(y_pred, 0.5, atol=0.1)
 # Show results
 plt.figure(figsize=(8, 6))
 
-x_line = np.linspace(-10, 10, 100)
+x_line = np.linspace(-6, 6, 100)
 y_line = 3 * x_line + 2
 
 plt.plot(x_line, y_line, 'r-', label="y = 3x + 2")  # Line

@@ -1,5 +1,7 @@
 import numpy as np
 
+np.set_printoptions(precision=1, suppress=True)
+
 class MLP:
     def __init__(self, input_size, hidden_size, output_size, lr=0.1):
         self.input_size = input_size
@@ -95,5 +97,7 @@ mlp = MLP(input_size=2, hidden_size=2, output_size=1)
 mlp.fit(X, y)
 
 predictions = mlp.predict(X)
+print("Expected:")
+print(y.flatten())
 print("Predictions:")
-print(predictions)
+print(predictions.flatten())

@@ -1,4 +1,4 @@
-# NAVY
+# NAVY - VOL0150
 ### Cvičení 1 - Perceptron
 ![Výsledek](CV1/result.png)
 

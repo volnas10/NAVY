@@ -7,3 +7,6 @@
 
 ### Cvičení 3 - Hopfieldova síť
 ![Výsledek](CV3/result.png)
+
+### Cvičení 4 - Q-Learning
+![Výsledek](CV4/result.gif)

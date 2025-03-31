@@ -10,13 +10,15 @@ class Perceptron:
 
     def fit(self, X, y, epochs=100):
         # Initialize random weights and bias
-        self.weights = np.random.rand(X.shape[1])
-        self.bias = np.random.rand()
+        self.weights = np.random.rand(X.shape[1]) # One weight for each feature (so 2 for X and Y)
+        self.bias = np.random.rand() # Bias is used to shift the output toward 0 or 1
 
         for epoch in range(epochs):
             average_error = 0
             for xi, yi in zip(X, y):
                 prediction = self.predict(xi)
+                # Error is calculated for each prediction and added to the weights
+                # Error can also be added up for all predictions in one class and added afterward
                 error = yi - prediction
 
                 # Update weights and bias
@@ -31,8 +33,10 @@ class Perceptron:
 
 
     def predict(self, x):
+        # np.dot multiplies each weight with its feature and adds them together with bias
         return self.sigmoid(np.dot(self.weights, x) + self.bias)
 
+    # Sigmoid activation makes the output between 0 and 1
     def sigmoid(self, x):
         return 1 / (1 + np.exp(-x))
 
@@ -49,7 +53,7 @@ below = y < y_line
 on_line = np.isclose(y, y_line, atol=0.5)
 
 y_train = np.zeros(100)
-y_train[above] = 1
+y_train[above] = 1 #
 y_train[on_line] = 0.5 # Points close to 0.5 will be on the line
 y_train[below] = 0
 
@@ -67,9 +71,9 @@ y_pred = np.zeros(100)
 for i, xi in enumerate(X_test):
     y_pred[i] = perceptron.predict(xi)
 
-above = y_pred > 0.5
-below = y_pred <= 0.5
-on_line = np.isclose(y_pred, 0.5, atol=0.1)
+above = y_pred > 0.5 # If predicted value is greater than 0.5, point is above the line
+below = y_pred <= 0.5 # If predicted value is greater than 0.5, point is above the line
+on_line = np.isclose(y_pred, 0.5, atol=0.1) # Additionally mark points close to 0.5 as on the line
 
 # Show results
 plt.figure(figsize=(8, 6))

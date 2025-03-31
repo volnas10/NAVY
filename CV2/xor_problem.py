@@ -10,14 +10,17 @@ class MLP:
         self.lr = lr
 
         # Weights and biases for (input > hidden) layer
+        # Creates a matrix so that after multiplying the input vector we get a vector of size hidden_size
         self.weights_ih = np.random.rand(input_size, hidden_size)
         self.bias_hidden = np.zeros(hidden_size)
 
         # Weights and biases for (hidden > output) layer
+        # Creates a matrix to downsize the hidden layer to output layer (since output_size is 1, it will be a vector)
         self.weights_ho = np.random.rand(hidden_size, output_size)
         self.bias_output = np.zeros(output_size)
 
     # Relu activation, sigmoid didn't work
+    # Relu makes all negative values 0
     def relu(self, x):
         return np.maximum(0, x)
 
@@ -26,6 +29,7 @@ class MLP:
 
     def forward_pass(self, X):
         # Calculate hidden layer activations
+        # Results of hidden results are saved to be used in the backward pass
         self.hidden_input = np.dot(X, self.weights_ih) + self.bias_hidden
         self.hidden_output = self.relu(self.hidden_input)
 
@@ -35,12 +39,14 @@ class MLP:
 
         return self.output_output
 
+    # Backpropagtation using batch gradient descent (error is calculated for the entire batch of data)
     def backward_pass(self, X, y, predicted):
         # Calculate error in the output layer
         output_error = y - predicted
-        output_delta = output_error * self.relu_derivative(predicted)
+        output_delta = output_error * self.relu_derivative(predicted) # Error has to be multiplied by the derivative of the activation function
 
         # Calculate error in the hidden layer
+        # The last matrix has to be transposed to match the dimensions
         hidden_error = np.dot(output_delta, self.weights_ho.T)
         hidden_delta = hidden_error * self.relu_derivative(self.hidden_output)
 

@@ -61,7 +61,7 @@ def run_synchronous(initial_state, W):
 def run_async(initial_state, W):
     state = initial_state.copy()
 
-    indices = np.random.permutation(len(state))
+    indices = np.random.permutation(len(state)) # Randomize the order of indices
     for i in indices:
         net_input = W[i, :].dot(state) # Only the i-th row of W is multiplied by the state vector
         new_val = 1 if (net_input > 0) else -1 # Apply the rule
@@ -98,6 +98,8 @@ p_vectors = np.array([pat.flatten() for pat in patterns])
 n_patterns, size = p_vectors.shape
 
 # Each weight represents the likelihood that 2 cells have the same color
+# When reconstructing the patters, the most likely color is calculated by checking the sum of all other cells that should have the same color
+# @ is matrix multiplication
 W = (p_vectors.T @ p_vectors) / n_patterns # Compute weight matrix using Hebbian rule
 np.fill_diagonal(W, 0) # Set diagonal to 0 to avoid self-connections
 

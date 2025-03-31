@@ -9,4 +9,6 @@
 ![Výsledek](CV3/result.png)
 
 ### Cvičení 4 - Q-Learning
-![Výsledek](CV4/result.gif)
+![Výsledek 1](CV4/result.gif)
+#### Vizualizace Q-table
+![Výsledek 2](CV4/result.png)

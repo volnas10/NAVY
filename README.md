@@ -12,3 +12,6 @@
 ![Výsledek 1](CV4/result.gif)
 #### Vizualizace Q-table
 ![Výsledek 2](CV4/result.png)
+
+### Cvičení 6 - L-Systémy
+![Výsledek](CV6/result.png)

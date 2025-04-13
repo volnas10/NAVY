@@ -15,3 +15,9 @@
 
 ### Cvičení 6 - L-Systémy
 ![Výsledek](CV6/result.png)
+
+### Cvičení 7 - IFS Fraktály
+![Výsledek 1](CV7/result1.png)
+![Výsledek 2](CV7/result2.png)
+
+### Cvičení 8 - Mandelbrot set

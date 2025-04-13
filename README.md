@@ -24,4 +24,4 @@
 #### Konečný zoom - 3,750,894,217,747,962x
 #### Poslední frame trval vyrenderovat 25 minut
 #### Ke konci už nestačil počet iterací, ale přesnost byla ještě dostatečná
-![Výsledek](CV8/result.mp4)
+![Výsledek](CV8/result.mp4) - Přes 10 MB

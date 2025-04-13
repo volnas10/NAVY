@@ -21,3 +21,7 @@
 ![Výsledek 2](CV7/result2.png)
 
 ### Cvičení 8 - Mandelbrot set
+#### Konečný zoom - 3,750,894,217,747,962x
+#### Poslední frame trval vyrenderovat 25 minut
+#### Ke konci už nestačil počet iterací, ale přesnost byla ještě dostatečná
+![Výsledek](CV8/result.mp4)

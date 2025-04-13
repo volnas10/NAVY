@@ -1,0 +1,6 @@
+.vs/
+render/
+x64/
+Mandelbrot/
+*.sln
+*.vcxproj*
